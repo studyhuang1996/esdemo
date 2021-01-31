@@ -19,10 +19,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.util.StringUtils;
 
 /**
- * program: esdemo
- * description: 自动配置注入restHighLevelClient
- * author: X-Pacific zhang
- * create: 2019-01-07 14:09
+ * 注入RestHighLevelClient，配置类
  **/
 @Configuration
 @ComponentScan("com.studyhuang.esdemo.config")
@@ -35,7 +32,7 @@ public class ElasticSearchConfiguration {
     private RestHighLevelClient restHighLevelClient;
 
 
-    @Bean(destroyMethod = "close")//这个close是调用RestHighLevelClient中的close
+    @Bean(destroyMethod = "close")
     @Scope("singleton")
     public RestHighLevelClient createInstance() {
         String host = elasticsearchProperties.getHost();
@@ -55,7 +52,7 @@ public class ElasticSearchConfiguration {
             if (!StringUtils.isEmpty(username)) {
                 final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
                 credentialsProvider.setCredentials(AuthScope.ANY,
-                        new UsernamePasswordCredentials(username, password));  //es账号密码（默认用户名为elastic）
+                        new UsernamePasswordCredentials(username, password));
                 restHighLevelClient = new RestHighLevelClient(
                         RestClient.builder(httpHosts).setHttpClientConfigCallback(new RestClientBuilder.HttpClientConfigCallback() {
                             public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
