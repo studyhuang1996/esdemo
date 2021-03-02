@@ -52,6 +52,7 @@ public class EsRepositoryImpl<T, M> implements EsRepository<T, M> {
     }
 
     public boolean exists(M id, Class<T> clazz) throws Exception {
+
         return false;
     }
 
